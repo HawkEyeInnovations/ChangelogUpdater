@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Find closest `package.json` in filesystem
+
 ## [2.0.3] - 2022-10-26
 ### Updated
 - upgrade dependencies to reduce security risk

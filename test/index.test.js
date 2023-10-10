@@ -68,9 +68,11 @@ describe('changelog-updater', () => {
 		});
 
 		it('should throw error if not possible to write changelog', () => {
-			readFileSyncMock.mockImplementation(
-				() => fixtures['github.before.md']
-			);
+			readFileSyncMock
+				.mockImplementationOnce(() => fixtures['github.before.md'])
+				.mockImplementationOnce(
+					() => fixtures[`package.github.https.json`]
+				);
 			writeFileSyncMock.mockImplementation(() => {
 				throw new Error('Could not write file');
 			});
@@ -79,9 +81,11 @@ describe('changelog-updater', () => {
 		});
 
 		it('should update [Unreleased] section for Github', () => {
-			readFileSyncMock.mockImplementation(
-				() => fixtures['github.before.md']
-			);
+			readFileSyncMock
+				.mockImplementationOnce(() => fixtures['github.before.md'])
+				.mockImplementationOnce(
+					() => fixtures[`package.github.https.json`]
+				);
 			writeFileSyncMock.mockImplementation(() => {});
 
 			main();
@@ -92,9 +96,11 @@ describe('changelog-updater', () => {
 		});
 
 		it('should update [Unreleased] section for Bitbucket', () => {
-			readFileSyncMock.mockImplementation(
-				() => fixtures['bitbucket.before.md']
-			);
+			readFileSyncMock
+				.mockImplementationOnce(() => fixtures['bitbucket.before.md'])
+				.mockImplementationOnce(
+					() => fixtures[`package.github.https.json`]
+				);
 			writeFileSyncMock.mockImplementation(() => {});
 
 			main();
@@ -188,9 +194,11 @@ describe('changelog-updater', () => {
 
 	describe('--check', () => {
 		it('should exit normally if using `--check` and [Unreleased] section is filled', () => {
-			readFileSyncMock.mockImplementation(
-				() => fixtures['github.before.md']
-			);
+			readFileSyncMock
+				.mockImplementationOnce(() => fixtures['github.before.md'])
+				.mockImplementationOnce(
+					() => fixtures[`package.github.https.json`]
+				);
 			writeFileSyncMock.mockImplementation(() => {});
 
 			main(['--check']);
@@ -199,9 +207,11 @@ describe('changelog-updater', () => {
 		});
 
 		it('should throw if using `--check` and [Unreleased] section is empty', () => {
-			readFileSyncMock.mockImplementation(
-				() => fixtures['empty.unreleased.md']
-			);
+			readFileSyncMock
+				.mockImplementationOnce(() => fixtures['empty.unreleased.md'])
+				.mockImplementationOnce(
+					() => fixtures['package.github.https.json']
+				);
 			writeFileSyncMock.mockImplementation(() => {});
 
 			expect(() => main(['--check'])).toThrow(noChangesMessage);
